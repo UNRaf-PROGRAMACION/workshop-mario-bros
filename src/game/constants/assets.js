@@ -108,5 +108,12 @@ export const ANIMATIONS = Object.freeze({
         frames: CHARACTERS.SMALL_MARIO.frames,
         frameRate: 10,
         repeat: -1
+    }),
+    GOOMBA_WALK: Object.freeze({
+        key: 'goomba_walk',
+        texture: CHARACTERS.GOOMBA.texture,
+        frames: CHARACTERS.GOOMBA.frames,
+        frameRate: 8,
+        repeat: -1
     })
 });

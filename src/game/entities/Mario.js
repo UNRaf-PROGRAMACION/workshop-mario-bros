@@ -104,6 +104,14 @@ export class Mario extends Physics.Arcade.Sprite
         this.emit(MARIO_DAMAGED_EVENT, { fatal: true });
     }
 
+    /** Impulso vertical externo, por ejemplo al aplastar un enemigo. */
+    bounce (velocityY)
+    {
+        this.body.setVelocityY(velocityY);
+        this.#bufferMs = 0;
+        this.#coyoteMs = 0;
+    }
+
     update (input, delta)
     {
         const seconds = delta / 1000;

@@ -1,6 +1,7 @@
 import { Scene } from 'phaser';
 import { ANIMATIONS, TEXTURES } from '../constants/assets.js';
 import { GAME_STATE_KEY, GameState } from '../state/GameState.js';
+import { createPiranhaTextures } from '../textures/piranha.js';
 
 /**
  * Primera escena: carga las hojas una sola vez, inicializa la partida y cede
@@ -28,6 +29,7 @@ export class Boot extends Scene
 
     create ()
     {
+        createPiranhaTextures(this);
         this.#createAnimations();
         this.registry.set(GAME_STATE_KEY, new GameState());
         this.scene.start('MainMenu');

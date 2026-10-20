@@ -1,7 +1,11 @@
 import { Input, Scene } from 'phaser';
+import { TILES } from '../constants/assets.js';
 import { Coin, COIN_COLLECTED_EVENT } from '../entities/Coin.js';
+import { Goomba } from '../entities/Goomba.js';
 import { Mushroom, MUSHROOM_COLLECTED_EVENT } from '../entities/Mushroom.js';
+import { PiranhaPlant } from '../entities/PiranhaPlant.js';
 import { BLOCK_TYPES, createBlock } from '../entities/blocks/createBlock.js';
+import { GOOMBA } from '../constants/goombas.js';
 import { Mario, MARIO_DAMAGED_EVENT } from '../entities/Mario.js';
 import { GAME_OVER_EVENT, GAME_STATE_KEY } from '../state/GameState.js';
 
@@ -10,13 +14,20 @@ const GROUND_COLOR = 0x8b5a2b;
 const GROUND_TOP = 700;
 const GROUND_HEIGHT = 18;
 const BLOCK_Y = 660;
-const SIDE_BLOCK = Object.freeze({ x: 720, y: 690 });
+const SIDE_BLOCK = Object.freeze({ x: 950, y: 690 });
+const PIPE_X = 850;
+const PIPE_RIM_Y = GROUND_TOP - 36;
+const GOOMBA_SPAWNS = Object.freeze([
+    Object.freeze({ x: 100, y: GROUND_TOP }),
+    Object.freeze({ x: 350, y: GROUND_TOP }),
+    Object.freeze({ x: 1000, y: GROUND_TOP })
+]);
 const COIN_SPOTS = Object.freeze([
     Object.freeze({ x: 350, y: 680 }),
     Object.freeze({ x: 420, y: 680 }),
     Object.freeze({ x: 490, y: 680 })
 ]);
-const MARIO_START = Object.freeze({ x: 100, y: 640 });
+const MARIO_START = Object.freeze({ x: 700, y: 640 });
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 768;
 const HUD_MARGIN = 24;
@@ -34,6 +45,7 @@ export class Game extends Scene
     #keys;
     #hudText;
     #mushrooms = [];
+    #goombas = [];
     #handlingDeath = false;
 
     constructor ()
@@ -47,6 +59,7 @@ export class Game extends Scene
 
         this.#handlingDeath = false;
         this.#mushrooms = [];
+        this.#goombas = [];
         this.cameras.main.setBackgroundColor(SKY_COLOR);
         this.physics.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
@@ -64,6 +77,9 @@ export class Game extends Scene
                 block.hit(mario);
             }
         });
+
+        this.#createGoombas();
+        this.#createPiranha();
 
         this.#createCoins();
 
@@ -92,6 +108,9 @@ export class Game extends Scene
 
         this.#mushrooms = this.#mushrooms.filter((mushroom) => mushroom.active);
         this.#mushrooms.forEach((mushroom) => mushroom.update());
+
+        this.#goombas = this.#goombas.filter((goomba) => goomba.active);
+        this.#goombas.forEach((goomba) => goomba.update());
     }
 
     #createGround ()
@@ -104,6 +123,9 @@ export class Game extends Scene
             GROUND_HEIGHT,
             GROUND_COLOR
         ));
+
+        this.#solids.create(PIPE_X, GROUND_TOP - 27, TILES.PIPE_TOP.texture, TILES.PIPE_TOP.frame).setDepth(10);
+        this.#solids.create(PIPE_X, GROUND_TOP - 9, TILES.PIPE_BODY.texture, TILES.PIPE_BODY.frame).setDepth(10);
     }
 
     #createBlocks ()
@@ -141,6 +163,50 @@ export class Game extends Scene
             console.info('[mushroom] collected');
         });
         this.physics.add.overlap(this.#mario, mushroom, () => mushroom.collect());
+    }
+
+    #createGoombas ()
+    {
+        GOOMBA_SPAWNS.forEach(({ x, y }) =>
+        {
+            const goomba = new Goomba(this, x, y);
+
+            this.#goombas.push(goomba);
+            this.physics.add.collider(goomba, this.#solids);
+            this.physics.add.collider(goomba, this.#blocks);
+            this.physics.add.overlap(this.#mario, goomba, () => this.#handleGoombaContact(goomba));
+        });
+    }
+
+    #createPiranha ()
+    {
+        const plant = new PiranhaPlant(this, PIPE_X, PIPE_RIM_Y);
+
+        this.physics.add.overlap(this.#mario, plant, () => this.#mario.takeDamage());
+    }
+
+    #handleGoombaContact (goomba)
+    {
+        if (goomba.isSquashed)
+        {
+            return;
+        }
+
+        const body = this.#mario.body;
+        const falling = body.velocity.y > 0;
+        const previousBottom = body.prev.y + body.height;
+        const aboveCenter = previousBottom <= goomba.body.center.y;
+
+        if (falling && aboveCenter)
+        {
+            goomba.squash();
+            this.#mario.bounce(GOOMBA.STOMP_BOUNCE);
+
+            console.info('[goomba] stomped');
+            return;
+        }
+
+        this.#mario.takeDamage();
     }
 
     #createCoins ()

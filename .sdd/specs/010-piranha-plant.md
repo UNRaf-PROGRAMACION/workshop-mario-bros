@@ -49,6 +49,9 @@ La Piranha Plant introduce un enemigo que no se puede derrotar y obliga a espera
 - La planta no puede ser derrotada por ningún medio.
 - El ciclo es constante y no depende de la posición de Mario.
 - La hitbox no debe dañar mientras la planta está completamente oculta.
+- La planta inicia oculta y el ciclo arranca al cargar el nivel, con la espera oculta de `2000 ms`.
+- La hitbox está activa durante subida, permanencia y bajada; se desactiva solo con la planta completamente oculta.
+- La tubería de prueba es andamiaje; `011` define la construcción real.
 
 ## Acceptance criteria
 
@@ -75,6 +78,6 @@ La Piranha Plant introduce un enemigo que no se puede derrotar y obliga a espera
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19

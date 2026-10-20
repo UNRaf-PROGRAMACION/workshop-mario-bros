@@ -48,6 +48,9 @@ El Goomba es el enemigo básico y el que enseña la regla central de plataformas
 - El contacto se evalúa por la posición relativa: si Mario viene cayendo y sus pies están por encima del centro del Goomba, cuenta como aplastamiento.
 - El Goomba cae por pozos y se destruye al salir del mundo.
 - No se otorgan puntos por aplastar: §8.1 solo puntúa monedas.
+- Dirección inicial hacia la izquierda en el escenario de prueba; `012` define posiciones y direcciones del nivel.
+- Al aplastarse se deshabilita el body, se aplica `scaleY 0.3` y se destruye a los `100 ms`; no vuelve a dañar.
+- El escenario de prueba incluye un Goomba bajo el spawn para el aplastamiento, uno de patrulla para el daño lateral y uno contra el bloque lateral para el giro.
 
 ## Acceptance criteria
 
@@ -72,6 +75,6 @@ El Goomba es el enemigo básico y el que enseña la regla central de plataformas
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19
