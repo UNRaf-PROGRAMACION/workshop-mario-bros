@@ -49,6 +49,9 @@ El escenario define el recorrido: dónde se puede caminar, qué se puede escalar
 - Los pozos son ausencia de suelo; su ancho lo define `012`.
 - Los tiles no se recortan: celda completa de `18 × 18`.
 - Se conserva el color original azul de las tuberías; no se aplica tinte.
+- Mientras `012` no defina el nivel definitivo, el escenario de prueba usa `1024 × 768`, suelo en `y = 700`, pozo de `40 px` y umbral de muerte `y = 750`.
+- `012` reemplaza esas medidas por las `3780 × 288` con cámara y ajusta el umbral a la altura del nivel.
+- Cualquier caída por debajo del umbral, dentro o fuera de un pozo, cuesta una vida.
 
 ## Acceptance criteria
 
@@ -73,6 +76,6 @@ El escenario define el recorrido: dónde se puede caminar, qué se puede escalar
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19

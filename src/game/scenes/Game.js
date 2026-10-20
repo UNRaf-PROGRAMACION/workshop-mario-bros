@@ -1,51 +1,26 @@
 import { Input, Scene } from 'phaser';
-import { TILES } from '../constants/assets.js';
-import { Coin, COIN_COLLECTED_EVENT } from '../entities/Coin.js';
-import { Goomba } from '../entities/Goomba.js';
-import { Mushroom, MUSHROOM_COLLECTED_EVENT } from '../entities/Mushroom.js';
-import { PiranhaPlant } from '../entities/PiranhaPlant.js';
-import { BLOCK_TYPES, createBlock } from '../entities/blocks/createBlock.js';
-import { GOOMBA } from '../constants/goombas.js';
 import { Mario, MARIO_DAMAGED_EVENT } from '../entities/Mario.js';
+import { buildEnvironment } from '../level/Environment.js';
+import { TEST_ENVIRONMENT } from '../level/testEnvironment.js';
 import { GAME_OVER_EVENT, GAME_STATE_KEY } from '../state/GameState.js';
 
 const SKY_COLOR = 0x5c94fc;
-const GROUND_COLOR = 0x8b5a2b;
-const GROUND_TOP = 700;
-const GROUND_HEIGHT = 18;
-const BLOCK_Y = 660;
-const SIDE_BLOCK = Object.freeze({ x: 950, y: 690 });
-const PIPE_X = 850;
-const PIPE_RIM_Y = GROUND_TOP - 36;
-const GOOMBA_SPAWNS = Object.freeze([
-    Object.freeze({ x: 100, y: GROUND_TOP }),
-    Object.freeze({ x: 350, y: GROUND_TOP }),
-    Object.freeze({ x: 1000, y: GROUND_TOP })
-]);
-const COIN_SPOTS = Object.freeze([
-    Object.freeze({ x: 350, y: 680 }),
-    Object.freeze({ x: 420, y: 680 }),
-    Object.freeze({ x: 490, y: 680 })
-]);
-const MARIO_START = Object.freeze({ x: 700, y: 640 });
+const MARIO_START = Object.freeze({ x: 100, y: 640 });
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 768;
 const HUD_MARGIN = 24;
 
 /**
- * Escenario esqueleto de la spec 006: un bloque de cada tipo, un hongo de
- * prueba y un bloque lateral. El layout real corresponde a la spec 012.
+ * Nivel esqueleto de la spec 011: entorno declarativo (suelo, plataformas,
+ * tuberías y pozos), Mario y HUD. Las entidades de otras specs se integran
+ * en el layout de la spec 012.
  */
 export class Game extends Scene
 {
-    #solids;
-    #blocks;
     #mario;
     #cursors;
     #keys;
     #hudText;
-    #mushrooms = [];
-    #goombas = [];
     #handlingDeath = false;
 
     constructor ()
@@ -58,30 +33,15 @@ export class Game extends Scene
         const state = this.registry.get(GAME_STATE_KEY);
 
         this.#handlingDeath = false;
-        this.#mushrooms = [];
-        this.#goombas = [];
         this.cameras.main.setBackgroundColor(SKY_COLOR);
         this.physics.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
-        this.#createGround();
-        this.#createBlocks();
+        const solids = buildEnvironment(this, TEST_ENVIRONMENT);
 
         this.#mario = new Mario(this, MARIO_START.x, MARIO_START.y);
         this.#mario.on(MARIO_DAMAGED_EVENT, (payload) => this.#handleMarioDamaged(payload));
 
-        this.physics.add.collider(this.#mario, this.#solids);
-        this.physics.add.collider(this.#mario, this.#blocks, (mario, block) =>
-        {
-            if (mario.body.touching.up)
-            {
-                block.hit(mario);
-            }
-        });
-
-        this.#createGoombas();
-        this.#createPiranha();
-
-        this.#createCoins();
+        this.physics.add.collider(this.#mario, solids);
 
         this.#cursors = this.input.keyboard.createCursorKeys();
         this.#keys = this.input.keyboard.addKeys({ left: 'A', right: 'D', jump: 'W' });
@@ -96,6 +56,12 @@ export class Game extends Scene
             return;
         }
 
+        if (this.#mario.y > TEST_ENVIRONMENT.deathY)
+        {
+            this.#mario.die();
+            return;
+        }
+
         const jumpPressed = Input.Keyboard.JustDown(this.#cursors.space)
             || Input.Keyboard.JustDown(this.#cursors.up)
             || Input.Keyboard.JustDown(this.#keys.jump);
@@ -105,129 +71,6 @@ export class Game extends Scene
             right: this.#cursors.right.isDown || this.#keys.right.isDown,
             jumpPressed
         }, delta);
-
-        this.#mushrooms = this.#mushrooms.filter((mushroom) => mushroom.active);
-        this.#mushrooms.forEach((mushroom) => mushroom.update());
-
-        this.#goombas = this.#goombas.filter((goomba) => goomba.active);
-        this.#goombas.forEach((goomba) => goomba.update());
-    }
-
-    #createGround ()
-    {
-        this.#solids = this.physics.add.staticGroup();
-        this.#solids.add(this.add.rectangle(
-            WORLD_WIDTH / 2,
-            GROUND_TOP + GROUND_HEIGHT / 2,
-            WORLD_WIDTH,
-            GROUND_HEIGHT,
-            GROUND_COLOR
-        ));
-
-        this.#solids.create(PIPE_X, GROUND_TOP - 27, TILES.PIPE_TOP.texture, TILES.PIPE_TOP.frame).setDepth(10);
-        this.#solids.create(PIPE_X, GROUND_TOP - 9, TILES.PIPE_BODY.texture, TILES.PIPE_BODY.frame).setDepth(10);
-    }
-
-    #createBlocks ()
-    {
-        this.#blocks = this.physics.add.staticGroup();
-
-        this.#addBlock(BLOCK_TYPES.HARD, 300, BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.BRICK, 380, BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.QUESTION, 460, BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.EMPTY, 540, BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.QUESTION, 620, BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.HARD, SIDE_BLOCK.x, SIDE_BLOCK.y);
-    }
-
-    #addBlock (type, x, y)
-    {
-        const block = createBlock(this, type, x, y, {
-            onRelease: (releaseX, releaseY) => this.#createMushroom(releaseX, releaseY)
-        });
-
-        this.#blocks.add(block);
-    }
-
-    #createMushroom (x, y)
-    {
-        const mushroom = new Mushroom(this, x, y);
-
-        this.#mushrooms.push(mushroom);
-
-        this.physics.add.collider(mushroom, this.#solids);
-        this.physics.add.collider(mushroom, this.#blocks);
-        mushroom.on(MUSHROOM_COLLECTED_EVENT, () =>
-        {
-            this.#mario.grow();
-            console.info('[mushroom] collected');
-        });
-        this.physics.add.overlap(this.#mario, mushroom, () => mushroom.collect());
-    }
-
-    #createGoombas ()
-    {
-        GOOMBA_SPAWNS.forEach(({ x, y }) =>
-        {
-            const goomba = new Goomba(this, x, y);
-
-            this.#goombas.push(goomba);
-            this.physics.add.collider(goomba, this.#solids);
-            this.physics.add.collider(goomba, this.#blocks);
-            this.physics.add.overlap(this.#mario, goomba, () => this.#handleGoombaContact(goomba));
-        });
-    }
-
-    #createPiranha ()
-    {
-        const plant = new PiranhaPlant(this, PIPE_X, PIPE_RIM_Y);
-
-        this.physics.add.overlap(this.#mario, plant, () => this.#mario.takeDamage());
-    }
-
-    #handleGoombaContact (goomba)
-    {
-        if (goomba.isSquashed)
-        {
-            return;
-        }
-
-        const body = this.#mario.body;
-        const falling = body.velocity.y > 0;
-        const previousBottom = body.prev.y + body.height;
-        const aboveCenter = previousBottom <= goomba.body.center.y;
-
-        if (falling && aboveCenter)
-        {
-            goomba.squash();
-            this.#mario.bounce(GOOMBA.STOMP_BOUNCE);
-
-            console.info('[goomba] stomped');
-            return;
-        }
-
-        this.#mario.takeDamage();
-    }
-
-    #createCoins ()
-    {
-        COIN_SPOTS.forEach(({ x, y }) =>
-        {
-            const coin = new Coin(this, x, y);
-
-            coin.on(COIN_COLLECTED_EVENT, () => this.#collectCoin());
-            this.physics.add.overlap(this.#mario, coin, () => coin.collect());
-        });
-    }
-
-    #collectCoin ()
-    {
-        const state = this.registry.get(GAME_STATE_KEY);
-
-        state.addCoin();
-        this.#updateHud(state);
-
-        console.info(`[coin] collected · coins ${state.coins} · score ${state.score}`);
     }
 
     #handleMarioDamaged ({ fatal })
