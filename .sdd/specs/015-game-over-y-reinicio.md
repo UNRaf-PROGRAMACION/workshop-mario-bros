@@ -7,7 +7,7 @@ El Game Over cierra la partida cuando se agotan las vidas y devuelve al jugador 
 ## Current and expected behavior
 
 **Actual**
-- No existen vidas ni pantalla de Game Over.
+- Ya existen vidas y reinicio de contadores al comenzar una partida. Al llegar a cero se emite `game-over` y se pausa Game, pero falta la pantalla de retorno.
 
 **Esperado**
 - Cuando Mario pierde todas las vidas, aparece la pantalla Game Over.
@@ -62,10 +62,10 @@ El Game Over cierra la partida cuando se agotan las vidas y devuelve al jugador 
 
 ## Open questions
 
-- ¿El botón vuelve al menú o reinicia la partida directamente? §11.4 indica volver al menú; se asume menú.
+- Resuelto: el botón vuelve al menú, de acuerdo con §11.4. Una nueva partida se inicia explícitamente desde Jugar.
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss (confirmación «continuar» al consultar el alcance)
+- Date: 2026-10-19

@@ -2,6 +2,7 @@ import { COIN } from '../constants/coins.js';
 
 export const GAME_STATE_KEY = 'gameState';
 export const GAME_OVER_EVENT = 'game-over';
+export const STATE_CHANGED_EVENT = 'game-state:changed';
 
 export const INITIAL_STATE = Object.freeze({
     lives: 3,
@@ -68,5 +69,14 @@ export class GameState
     {
         this.#coins += COIN.VALUE;
         this.#score += COIN.SCORE;
+    }
+
+    /** Reinicia contadores para una partida nueva (§11.4). */
+    reset ()
+    {
+        this.#lives = INITIAL_STATE.lives;
+        this.#coins = INITIAL_STATE.coins;
+        this.#score = INITIAL_STATE.score;
+        this.#world = INITIAL_STATE.world;
     }
 }

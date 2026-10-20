@@ -50,6 +50,8 @@ El HUD es la única lectura que tiene el jugador de su progreso: cuántas moneda
 - Se usa `scene.registry` o un módulo de estado de partida, no variables globales.
 - La hoja no tiene letras: `MARIO`, `COINS`, `LIVES` y `WORLD` van con texto de Phaser.
 - `WORLD` usa `1-1` fijo; no hay progresión de mundos.
+- El HUD se implementa como escena propia (`Hud`) con cámara sin zoom, para no verse afectado por el `zoom 3` del nivel.
+- El puntaje se muestra después de `MARIO`, siguiendo el ejemplo de §9.
 
 ## Acceptance criteria
 
@@ -76,6 +78,6 @@ El HUD es la única lectura que tiene el jugador de su progreso: cuántas moneda
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19

@@ -7,7 +7,7 @@ La meta da sentido al recorrido: sin ella el nivel no tiene final ni recompensa.
 ## Current and expected behavior
 
 **Actual**
-- No existe meta ni condición de victoria.
+- El poste y la bandera ya se dibujan al final del nivel (`012`), pero no tienen overlap ni condición de victoria.
 
 **Esperado**
 - Al final del nivel hay un poste armado con los tiles `32`, `52` y `72`, y una bandera con el tile `85`.
@@ -52,13 +52,13 @@ La meta da sentido al recorrido: sin ella el nivel no tiene final ni recompensa.
 
 ## Acceptance criteria
 
-- [ ] El poste y la bandera se ven al final del nivel con los tiles `32`, `52`, `72` y `85`.
-- [ ] Tocar la meta detiene a Mario y bloquea el input de juego.
-- [ ] Aparece el mensaje «¡Nivel completado!».
-- [ ] La activación ocurre una sola vez aunque Mario siga en contacto.
-- [ ] El botón de retorno lleva al Main Menu.
-- [ ] Después de completar el nivel no se puede seguir avanzando ni sufrir daño.
-- [ ] `npm run build` termina sin errores.
+- [x] El poste y la bandera se ven al final del nivel con los tiles `32`, `52`, `72` y `85`.
+- [x] Tocar la meta detiene a Mario y bloquea el input de juego.
+- [x] Aparece el mensaje «¡Nivel completado!».
+- [x] La activación ocurre una sola vez aunque Mario siga en contacto.
+- [x] El botón de retorno lleva al Main Menu.
+- [x] Después de completar el nivel no se puede seguir avanzando ni sufrir daño.
+- [x] `npm run build` termina sin errores.
 
 ## Evidence expected
 
@@ -68,10 +68,15 @@ La meta da sentido al recorrido: sin ella el nivel no tiene final ni recompensa.
 
 ## Open questions
 
-- ¿El mensaje es un overlay sobre el nivel o una escena nueva? Decisión técnica para el plan.
+- Resuelto: escena transparente `LevelComplete` sobre el nivel pausado, con cámara propia sin zoom, igual que el HUD.
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss (confirmación «continaur» al consultar el alcance)
+- Date: 2026-10-19
+
+## Related records
+
+- Plan: `.sdd/plans/014-meta-y-fin-de-nivel.md`.
+- Evidence: `.sdd/evidence/014-meta-y-fin-de-nivel.md` (verificación automatizada; revisión humana pendiente).

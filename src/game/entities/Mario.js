@@ -104,6 +104,15 @@ export class Mario extends Physics.Arcade.Sprite
         this.emit(MARIO_DAMAGED_EVENT, { fatal: true });
     }
 
+    /** Detiene a Mario al completar el nivel e impide nuevos contactos físicos. */
+    freeze ()
+    {
+        this.body.stop();
+        this.body.enable = false;
+        this.anims.stop();
+        this.setAlpha(1);
+    }
+
     /** Impulso vertical externo, por ejemplo al aplastar un enemigo. */
     bounce (velocityY)
     {

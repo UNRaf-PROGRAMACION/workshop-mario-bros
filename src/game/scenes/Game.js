@@ -1,25 +1,30 @@
 import { Input, Scene } from 'phaser';
-import { TILES, TILE_SEQUENCES } from '../constants/assets.js';
+import { TILE_SEQUENCES } from '../constants/assets.js';
 import { GOOMBA } from '../constants/goombas.js';
 import { Coin, COIN_COLLECTED_EVENT } from '../entities/Coin.js';
 import { Goomba } from '../entities/Goomba.js';
+import { GoalPole } from '../entities/GoalPole.js';
 import { Mushroom, MUSHROOM_COLLECTED_EVENT } from '../entities/Mushroom.js';
 import { PiranhaPlant } from '../entities/PiranhaPlant.js';
 import { BLOCK_TYPES, createBlock } from '../entities/blocks/createBlock.js';
 import { Mario, MARIO_DAMAGED_EVENT } from '../entities/Mario.js';
 import { buildEnvironment } from '../level/Environment.js';
 import { WORLD_1_1 } from '../level/world11.js';
-import { GAME_OVER_EVENT, GAME_STATE_KEY } from '../state/GameState.js';
+import { GAME_OVER_EVENT, GAME_STATE_KEY, STATE_CHANGED_EVENT } from '../state/GameState.js';
 
 const SKY_COLOR = 0x5c94fc;
 const CAMERA_ZOOM = 3;
 const CAMERA_LERP = 0.1;
 const CLOUD_DEPTH = -1;
-const GOAL_DEPTH = 1;
+const LEVEL_STATES = Object.freeze({
+    PLAYING: 'playing',
+    DYING: 'dying',
+    COMPLETED: 'completed'
+});
 
 /**
  * World 1-1 (spec 012): nivel completo con cámara, entorno, bloques, monedas,
- * hongos, Goombas, Piranha Plants y Goal Pole visual.
+ * hongos, Goombas, Piranha Plants y Goal Pole con final de nivel.
  */
 export class Game extends Scene
 {
@@ -30,7 +35,7 @@ export class Game extends Scene
     #keys;
     #mushrooms = [];
     #goombas = [];
-    #handlingDeath = false;
+    #levelState = LEVEL_STATES.PLAYING;
 
     constructor ()
     {
@@ -39,7 +44,7 @@ export class Game extends Scene
 
     create ()
     {
-        this.#handlingDeath = false;
+        this.#levelState = LEVEL_STATES.PLAYING;
         this.#mushrooms = [];
         this.#goombas = [];
 
@@ -51,7 +56,7 @@ export class Game extends Scene
         this.#solids = environment.solids;
         this.#createBlocks();
 
-        this.#mario = new Mario(this, WORLD_1_1.marioStart.x, WORLD_1_1.marioStart.y);
+        this.#mario = new Mario(this, this.#resolveStartX(), WORLD_1_1.marioStart.y);
         this.#mario.on(MARIO_DAMAGED_EVENT, (payload) => this.#handleMarioDamaged(payload));
 
         this.physics.add.collider(this.#mario, this.#solids);
@@ -77,11 +82,15 @@ export class Game extends Scene
 
         this.#cursors = this.input.keyboard.createCursorKeys();
         this.#keys = this.input.keyboard.addKeys({ left: 'A', right: 'D', jump: 'W' });
+
+        this.scene.launch('Hud');
+        this.scene.bringToTop('Hud');
+        this.events.once('shutdown', () => this.scene.stop('Hud'));
     }
 
     update (time, delta)
     {
-        if (this.#handlingDeath)
+        if (this.#levelState !== LEVEL_STATES.PLAYING)
         {
             return;
         }
@@ -109,9 +118,20 @@ export class Game extends Scene
         this.#goombas.forEach((goomba) => goomba.update());
     }
 
-    #createBlocks ()
+    #resolveStartX ()
     {
-        this.#blocks = this.physics.add.staticGroup();
+        if (!import.meta.env.DEV)
+        {
+            return WORLD_1_1.marioStart.x;
+        }
+
+        const value = Number(new URLSearchParams(window.location.search).get('startX'));
+
+        return Number.isFinite(value) && value > 0 ? value : WORLD_1_1.marioStart.x;
+    }
+
+    #createBlocks ()
+    {        this.#blocks = this.physics.add.staticGroup();
 
         WORLD_1_1.blocks.forEach(({ type, x, y }) =>
         {
@@ -150,6 +170,7 @@ export class Game extends Scene
                 const state = this.registry.get(GAME_STATE_KEY);
 
                 state.addCoin();
+                this.registry.events.emit(STATE_CHANGED_EVENT, state);
                 console.info(`[coin] collected · coins ${state.coins} · score ${state.score}`);
             });
             this.physics.add.overlap(this.#mario, coin, () => coin.collect());
@@ -192,22 +213,22 @@ export class Game extends Scene
 
     #createGoal ()
     {
-        const { x, baseY, height } = WORLD_1_1.goal;
+        new GoalPole(this, WORLD_1_1.goal, this.#mario, () => this.#completeLevel());
+    }
 
-        for (let index = 0; index < height; index++)
+    #completeLevel ()
+    {
+        if (this.#levelState !== LEVEL_STATES.PLAYING)
         {
-            const tile = index === 0
-                ? TILES.GOAL_POLE_BASE
-                : index === 1
-                    ? TILES.GOAL_POLE_MIDDLE
-                    : TILES.GOAL_POLE_SEGMENT;
-
-            this.add.image(x, baseY - 9 - index * 18, tile.texture, tile.frame).setDepth(GOAL_DEPTH);
+            return;
         }
 
-        const topY = baseY - height * 18;
-
-        this.add.image(x + 18, topY + 9, TILES.FLAG.texture, TILES.FLAG.frame).setDepth(GOAL_DEPTH);
+        this.#levelState = LEVEL_STATES.COMPLETED;
+        this.#mario.freeze();
+        this.physics.pause();
+        console.info('[game] nivel completado');
+        this.scene.launch('LevelComplete');
+        this.scene.pause();
     }
 
     #handleGoombaContact (goomba)
@@ -235,23 +256,26 @@ export class Game extends Scene
 
     #handleMarioDamaged ({ fatal })
     {
-        if (!fatal || this.#handlingDeath)
+        if (!fatal || this.#levelState !== LEVEL_STATES.PLAYING)
         {
             return;
         }
 
-        this.#handlingDeath = true;
+        this.#levelState = LEVEL_STATES.DYING;
 
         const state = this.registry.get(GAME_STATE_KEY);
         const lives = state.loseLife();
 
+        this.registry.events.emit(STATE_CHANGED_EVENT, state);
         console.info(`[game] vida perdida · vidas restantes: ${lives}`);
 
         if (lives <= 0)
         {
+            this.#mario.freeze();
+            this.physics.pause();
             console.info('[game] game over');
             this.game.events.emit(GAME_OVER_EVENT);
-            this.scene.pause();
+            this.scene.start('GameOver');
             return;
         }
 

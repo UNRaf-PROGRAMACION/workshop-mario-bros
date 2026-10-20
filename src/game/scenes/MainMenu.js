@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { GAME_STATE_KEY } from '../state/GameState.js';
 
 const TITLE = 'SUPER MARIO BROS';
 const SUBTITLE = 'Versión simplificada';
@@ -25,6 +26,7 @@ export class MainMenu extends Scene
 
     create ()
     {
+        this.#starting = false;
         this.cameras.main.setBackgroundColor(COLORS.BACKGROUND);
 
         this.add.text(512, 230, TITLE, {
@@ -74,6 +76,11 @@ export class MainMenu extends Scene
         }
 
         this.#starting = true;
+
+        const state = this.registry.get(GAME_STATE_KEY);
+
+        state?.reset();
+
         this.scene.start('WorldScreen');
     }
 }

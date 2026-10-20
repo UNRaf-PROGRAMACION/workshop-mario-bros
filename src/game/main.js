@@ -3,6 +3,9 @@ import { Boot } from './scenes/Boot';
 import { MainMenu } from './scenes/MainMenu';
 import { WorldScreen } from './scenes/WorldScreen';
 import { Game as MainGame } from './scenes/Game';
+import { Hud } from './scenes/Hud';
+import { LevelComplete } from './scenes/LevelComplete';
+import { GameOver } from './scenes/GameOver';
 
 // Find out more information about the Game Config at:
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -30,7 +33,10 @@ const config = {
         Boot,
         MainMenu,
         WorldScreen,
-        MainGame
+        MainGame,
+        Hud,
+        LevelComplete,
+        GameOver
     ]
 };
 
