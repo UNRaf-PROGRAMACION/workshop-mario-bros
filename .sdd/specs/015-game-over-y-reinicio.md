@@ -46,13 +46,13 @@ El Game Over cierra la partida cuando se agotan las vidas y devuelve al jugador 
 
 ## Acceptance criteria
 
-- [ ] Al perder la última vida aparece la pantalla Game Over.
-- [ ] La pantalla muestra «GAME OVER» y un botón para volver al menú.
-- [ ] Mientras se muestra Game Over no se puede seguir jugando el nivel.
-- [ ] Al volver al menú y comenzar una nueva partida, las vidas son 3, las monedas 0 y el puntaje 0.
-- [ ] La nueva partida comienza con Small Mario en el inicio del nivel.
-- [ ] El flujo completo menú → nivel → Game Over → menú → nivel funciona sin errores.
-- [ ] `npm run build` termina sin errores.
+- [x] Al perder la última vida aparece la pantalla Game Over.
+- [x] La pantalla muestra «GAME OVER» y un botón para volver al menú.
+- [x] Mientras se muestra Game Over no se puede seguir jugando el nivel.
+- [x] Al volver al menú y comenzar una nueva partida, las vidas son 3, las monedas 0 y el puntaje 0.
+- [x] La nueva partida comienza con Small Mario en el inicio del nivel.
+- [x] El flujo completo menú → nivel → Game Over → menú → nivel funciona sin errores.
+- [x] `npm run build` termina sin errores.
 
 ## Evidence expected
 
@@ -69,3 +69,8 @@ El Game Over cierra la partida cuando se agotan las vidas y devuelve al jugador 
 - Status: approved
 - Approved by: aguss (confirmación «continuar» al consultar el alcance)
 - Date: 2026-10-19
+
+## Related records
+
+- Plan: `.sdd/plans/015-game-over-y-reinicio.md`.
+- Evidence: `.sdd/evidence/015-game-over-y-reinicio.md` (verificación automatizada; revisión humana pendiente).

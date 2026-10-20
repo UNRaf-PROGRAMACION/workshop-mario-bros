@@ -1,0 +1,286 @@
+{
+  "errors": [],
+  "logs": [
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 2",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 1",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[mario] state super · hitbox 20×26 · escala 1.5",
+    "[game] vida perdida · vidas restantes: 0",
+    "[game] game over",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 2",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 1",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 0",
+    "[game] game over",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 2",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 1",
+    "[mario] state small · hitbox 16×22 · escala 1",
+    "[game] vida perdida · vidas restantes: 0",
+    "[game] game over",
+    "[mario] state small · hitbox 16×22 · escala 1"
+  ],
+  "checks": {
+    "initial": {
+      "gameActive": true,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": true,
+      "menuActive": false,
+      "worldExists": true,
+      "mario": {
+        "x": 54,
+        "y": 252,
+        "form": "small"
+      },
+      "score": 0,
+      "coins": 0,
+      "lives": 3,
+      "messages": [],
+      "hudDigitFrames": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        163
+      ]
+    },
+    "pitDeaths": [
+      {
+        "gameActive": true,
+        "gamePaused": false,
+        "gameOverActive": false,
+        "hudActive": true,
+        "menuActive": false,
+        "worldExists": true,
+        "mario": {
+          "x": 54,
+          "y": 252,
+          "form": "small"
+        },
+        "score": 0,
+        "coins": 0,
+        "lives": 2,
+        "messages": [],
+        "hudDigitFrames": [
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          162
+        ]
+      },
+      {
+        "gameActive": true,
+        "gamePaused": false,
+        "gameOverActive": false,
+        "hudActive": true,
+        "menuActive": false,
+        "worldExists": true,
+        "mario": {
+          "x": 54,
+          "y": 252,
+          "form": "small"
+        },
+        "score": 0,
+        "coins": 0,
+        "lives": 1,
+        "messages": [],
+        "hudDigitFrames": [
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          160,
+          161
+        ]
+      },
+      {
+        "gameActive": false,
+        "gamePaused": false,
+        "gameOverActive": true,
+        "hudActive": false,
+        "menuActive": false,
+        "worldExists": false,
+        "mario": null,
+        "score": 100,
+        "coins": 1,
+        "lives": 0,
+        "messages": [
+          "GAME OVER",
+          "Volver al menú",
+          "ENTER / ESPACIO / CLIC"
+        ],
+        "hudDigitFrames": []
+      }
+    ],
+    "progressBeforeLastDeath": {
+      "gameActive": true,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": true,
+      "menuActive": false,
+      "worldExists": true,
+      "mario": {
+        "x": 54,
+        "y": 252,
+        "form": "super"
+      },
+      "score": 100,
+      "coins": 1,
+      "lives": 1,
+      "messages": [],
+      "hudDigitFrames": [
+        160,
+        160,
+        160,
+        161,
+        160,
+        160,
+        160,
+        161,
+        160,
+        161
+      ]
+    },
+    "blockedInput": {
+      "gameActive": false,
+      "gamePaused": false,
+      "gameOverActive": true,
+      "hudActive": false,
+      "menuActive": false,
+      "worldExists": false,
+      "mario": null,
+      "score": 100,
+      "coins": 1,
+      "lives": 0,
+      "messages": [
+        "GAME OVER",
+        "Volver al menú",
+        "ENTER / ESPACIO / CLIC"
+      ],
+      "hudDigitFrames": []
+    },
+    "enterReturn": {
+      "gameActive": false,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": false,
+      "menuActive": true,
+      "worldExists": false,
+      "mario": null,
+      "score": 100,
+      "coins": 1,
+      "lives": 0,
+      "messages": [],
+      "hudDigitFrames": []
+    },
+    "newGame": {
+      "gameActive": true,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": true,
+      "menuActive": false,
+      "worldExists": true,
+      "mario": {
+        "x": 54,
+        "y": 252,
+        "form": "small"
+      },
+      "score": 0,
+      "coins": 0,
+      "lives": 3,
+      "messages": [],
+      "hudDigitFrames": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        163
+      ]
+    },
+    "mouseReturn": {
+      "gameActive": false,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": false,
+      "menuActive": true,
+      "worldExists": false,
+      "mario": null,
+      "score": 0,
+      "coins": 0,
+      "lives": 0,
+      "messages": [],
+      "hudDigitFrames": []
+    },
+    "spaceReturn": {
+      "gameActive": false,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": false,
+      "menuActive": true,
+      "worldExists": false,
+      "mario": null,
+      "score": 0,
+      "coins": 0,
+      "lives": 0,
+      "messages": [],
+      "hudDigitFrames": []
+    },
+    "gameOverEvents": 3,
+    "movementAfterRestart": {
+      "gameActive": true,
+      "gamePaused": false,
+      "gameOverActive": false,
+      "hudActive": true,
+      "menuActive": false,
+      "worldExists": true,
+      "mario": {
+        "x": 73.5557333333333,
+        "y": 252,
+        "form": "small"
+      },
+      "score": 0,
+      "coins": 0,
+      "lives": 3,
+      "messages": [],
+      "hudDigitFrames": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        160,
+        163
+      ]
+    }
+  },
+  "result": "passed"
+}
