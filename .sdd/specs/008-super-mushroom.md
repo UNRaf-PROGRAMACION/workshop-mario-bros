@@ -50,6 +50,9 @@ El hongo es el único objeto que cambia el estado de Mario y, con él, el acceso
 - El hongo puede caer en un pozo y desaparecer sin penalización.
 - Un hongo recogido por Super Mario no produce ningún efecto ni duplica estado.
 - El hongo no rebota al caer.
+- El hongo emerge hacia la derecha por defecto.
+- Los enemigos no destruyen ni aplastan el hongo: el GDD no lo menciona.
+- El escenario de prueba tiene dos ? Blocks para poder probar la recogida con Small y con Super.
 
 ## Acceptance criteria
 
@@ -75,6 +78,6 @@ El hongo es el único objeto que cambia el estado de Mario y, con él, el acceso
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19

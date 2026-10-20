@@ -27,6 +27,6 @@ export class QuestionBlock extends Block
 
         this.setTexture(TILES.EMPTY_BLOCK.texture, TILES.EMPTY_BLOCK.frame);
         this.bounce();
-        this.#onRelease?.(this.x, this.y - 9);
+        this.#onRelease?.(this.x, this.y);
     }
 }

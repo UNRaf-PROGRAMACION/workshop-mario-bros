@@ -1,6 +1,6 @@
 import { Input, Scene } from 'phaser';
-import { TILES } from '../constants/assets.js';
 import { Coin, COIN_COLLECTED_EVENT } from '../entities/Coin.js';
+import { Mushroom, MUSHROOM_COLLECTED_EVENT } from '../entities/Mushroom.js';
 import { BLOCK_TYPES, createBlock } from '../entities/blocks/createBlock.js';
 import { Mario, MARIO_DAMAGED_EVENT } from '../entities/Mario.js';
 import { GAME_OVER_EVENT, GAME_STATE_KEY } from '../state/GameState.js';
@@ -10,9 +10,7 @@ const GROUND_COLOR = 0x8b5a2b;
 const GROUND_TOP = 700;
 const GROUND_HEIGHT = 18;
 const BLOCK_Y = 660;
-const BLOCK_XS = Object.freeze([300, 380, 460, 540]);
 const SIDE_BLOCK = Object.freeze({ x: 720, y: 690 });
-const TEST_MUSHROOM = Object.freeze({ x: 620, y: GROUND_TOP });
 const COIN_SPOTS = Object.freeze([
     Object.freeze({ x: 350, y: 680 }),
     Object.freeze({ x: 420, y: 680 }),
@@ -35,6 +33,7 @@ export class Game extends Scene
     #cursors;
     #keys;
     #hudText;
+    #mushrooms = [];
     #handlingDeath = false;
 
     constructor ()
@@ -47,6 +46,7 @@ export class Game extends Scene
         const state = this.registry.get(GAME_STATE_KEY);
 
         this.#handlingDeath = false;
+        this.#mushrooms = [];
         this.cameras.main.setBackgroundColor(SKY_COLOR);
         this.physics.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
@@ -65,7 +65,6 @@ export class Game extends Scene
             }
         });
 
-        this.#createMushroom(TEST_MUSHROOM.x, TEST_MUSHROOM.y);
         this.#createCoins();
 
         this.#cursors = this.input.keyboard.createCursorKeys();
@@ -90,6 +89,9 @@ export class Game extends Scene
             right: this.#cursors.right.isDown || this.#keys.right.isDown,
             jumpPressed
         }, delta);
+
+        this.#mushrooms = this.#mushrooms.filter((mushroom) => mushroom.active);
+        this.#mushrooms.forEach((mushroom) => mushroom.update());
     }
 
     #createGround ()
@@ -108,10 +110,11 @@ export class Game extends Scene
     {
         this.#blocks = this.physics.add.staticGroup();
 
-        this.#addBlock(BLOCK_TYPES.HARD, BLOCK_XS[0], BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.BRICK, BLOCK_XS[1], BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.QUESTION, BLOCK_XS[2], BLOCK_Y);
-        this.#addBlock(BLOCK_TYPES.EMPTY, BLOCK_XS[3], BLOCK_Y);
+        this.#addBlock(BLOCK_TYPES.HARD, 300, BLOCK_Y);
+        this.#addBlock(BLOCK_TYPES.BRICK, 380, BLOCK_Y);
+        this.#addBlock(BLOCK_TYPES.QUESTION, 460, BLOCK_Y);
+        this.#addBlock(BLOCK_TYPES.EMPTY, 540, BLOCK_Y);
+        this.#addBlock(BLOCK_TYPES.QUESTION, 620, BLOCK_Y);
         this.#addBlock(BLOCK_TYPES.HARD, SIDE_BLOCK.x, SIDE_BLOCK.y);
     }
 
@@ -126,17 +129,18 @@ export class Game extends Scene
 
     #createMushroom (x, y)
     {
-        const mushroom = TILES.SUPER_MUSHROOM;
+        const mushroom = new Mushroom(this, x, y);
 
-        const pickup = this.physics.add.staticImage(x, y, mushroom.texture, mushroom.frame)
-            .setOrigin(0.5, 1)
-            .refreshBody();
+        this.#mushrooms.push(mushroom);
 
-        this.physics.add.overlap(this.#mario, pickup, () =>
+        this.physics.add.collider(mushroom, this.#solids);
+        this.physics.add.collider(mushroom, this.#blocks);
+        mushroom.on(MUSHROOM_COLLECTED_EVENT, () =>
         {
-            pickup.destroy();
             this.#mario.grow();
+            console.info('[mushroom] collected');
         });
+        this.physics.add.overlap(this.#mario, mushroom, () => mushroom.collect());
     }
 
     #createCoins ()
