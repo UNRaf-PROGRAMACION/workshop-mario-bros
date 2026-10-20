@@ -52,6 +52,9 @@ El GDD define un único nivel. Sin un layout concreto, todos los sistemas anteri
 - Un solo nivel; no hay transición a `1-2`.
 - El nivel es más ancho que el canvas; la cámara sigue a Mario horizontal y verticalmente dentro de los límites.
 - Las nubes no afectan la jugabilidad.
+- **Layout aprobado para esta spec**: 210 columnas × 16 filas; suelo con 3 pozos de 2 tiles (`68–70`, `116–118`, `164–166`); 5 plataformas, 4 tuberías (3 con Piranha), 11 bloques, 27 monedas, 7 Goombas y el Goal Pole en la columna `205`.
+- El Goal Pole se construye visualmente en esta spec; la interacción de fin de nivel corresponde a `014`.
+- El HUD definitivo se implementa en `013`; esta spec no dibuja HUD para evitar conflictos con el zoom.
 
 ## Acceptance criteria
 
@@ -78,6 +81,6 @@ El GDD define un único nivel. Sin un layout concreto, todos los sistemas anteri
 
 ## Human approval
 
-- Status: draft
-- Approved by:
-- Date:
+- Status: approved
+- Approved by: aguss
+- Date: 2026-10-19

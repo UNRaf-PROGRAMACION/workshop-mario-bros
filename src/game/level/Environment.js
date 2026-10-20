@@ -81,7 +81,7 @@ const buildPlatform = (scene, solids, { kind, left, top, tiles }) =>
     );
 };
 
-const buildPipe = (scene, solids, { x, baseY, tiles }) =>
+const buildPipe = (scene, solids, { x, baseY, tiles, piranha }) =>
 {
     if (tiles < 2)
     {
@@ -101,6 +101,8 @@ const buildPipe = (scene, solids, { x, baseY, tiles }) =>
     }
 
     addStaticBody(scene, solids, x, baseY - height / 2, TILE_SIZE, height);
+
+    return { x, baseY, tiles, rim, piranha: Boolean(piranha) };
 };
 
 /**
@@ -113,7 +115,8 @@ export const buildEnvironment = (scene, data) =>
 
     data.ground.forEach((span) => buildGround(scene, solids, span, data.groundTop));
     data.platforms.forEach((platform) => buildPlatform(scene, solids, platform));
-    data.pipes.forEach((pipe) => buildPipe(scene, solids, pipe));
 
-    return solids;
+    const pipes = data.pipes.map((pipe) => buildPipe(scene, solids, pipe));
+
+    return { solids, pipes };
 };
