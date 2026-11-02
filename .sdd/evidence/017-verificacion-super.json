@@ -1,0 +1,202 @@
+{
+  "errors": [],
+  "checks": {
+    "assembly": {
+      "surface": [
+        21,
+        22,
+        22
+      ],
+      "base": [
+        141,
+        142,
+        142
+      ],
+      "red": [
+        14,
+        12,
+        13,
+        15
+      ],
+      "beige": [
+        41,
+        42,
+        42,
+        43
+      ],
+      "firstCloud": [
+        153,
+        154,
+        155
+      ]
+    }
+  },
+  "localTrials": [
+    {
+      "name": "free-jump",
+      "form": "super",
+      "initialX": 2800,
+      "finalX": 2800,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2800,
+      "ceilingHit": false,
+      "frames": 57,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "reported-pipe",
+      "form": "super",
+      "initialX": 950,
+      "finalX": 1064.555866666666,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1064.555866666666,
+      "ceilingHit": false,
+      "frames": 73,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-48",
+      "form": "super",
+      "initialX": 834,
+      "finalX": 894.8340333333324,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 894.8340333333324,
+      "ceilingHit": false,
+      "frames": 48,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-130",
+      "form": "super",
+      "initialX": 2310,
+      "finalX": 2370.83323333333,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 2370.83323333333,
+      "ceilingHit": false,
+      "frames": 47,
+      "coins": 3,
+      "lives": 3
+    },
+    {
+      "name": "wood-platform",
+      "form": "super",
+      "initialX": 274,
+      "finalX": 335.4993333333338,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 335.4993333333338,
+      "ceilingHit": false,
+      "frames": 51,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-30",
+      "form": "super",
+      "initialX": 510,
+      "finalX": 603.501299999998,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 603.501299999998,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-100",
+      "form": "super",
+      "initialX": 1770,
+      "finalX": 1861.8336333333366,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1861.8336333333366,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-150",
+      "form": "super",
+      "initialX": 2670,
+      "finalX": 2771.8316666666587,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2771.8316666666587,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pit-68",
+      "form": "super",
+      "initialX": 1195,
+      "finalX": 1316.221066666672,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1316.221066666672,
+      "ceilingHit": false,
+      "frames": 77,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-116",
+      "form": "super",
+      "initialX": 2059,
+      "finalX": 2181.8874666666557,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2181.8874666666557,
+      "ceilingHit": false,
+      "frames": 78,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-164",
+      "form": "super",
+      "initialX": 2923,
+      "finalX": 3044.2218666666568,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 3044.2218666666568,
+      "ceilingHit": false,
+      "frames": 77,
+      "coins": 2,
+      "lives": 3
+    }
+  ],
+  "result": "local-passed",
+  "continuous": [
+    {
+      "result": "damage-taken",
+      "initialX": 54,
+      "initialForm": "super",
+      "finalForm": "small",
+      "lastX": 282.22186666666624,
+      "elapsedMs": 2357,
+      "lives": 3,
+      "damageEvents": [
+        {
+          "fatal": false,
+          "x": 280.22186666666624,
+          "ms": 2355
+        }
+      ],
+      "checkpoints": [],
+      "physicsFps": 60,
+      "renderFps": 60,
+      "method": "Continuo desde spawn normal, teclado sintético, enemigos activos, sin reposicionar ni conceder invulnerabilidad; termina al recibir daño. Super se prepara con grow() solo en el spawn."
+    }
+  ]
+}

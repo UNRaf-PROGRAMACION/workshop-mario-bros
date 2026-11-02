@@ -1,0 +1,405 @@
+{
+  "errors": [],
+  "checks": {
+    "assembly": {
+      "surface": [
+        21,
+        22,
+        22
+      ],
+      "base": [
+        141,
+        142,
+        142
+      ],
+      "red": [
+        14,
+        12,
+        13,
+        15
+      ],
+      "beige": [
+        41,
+        42,
+        42,
+        43
+      ],
+      "firstCloud": [
+        153,
+        154,
+        155
+      ]
+    }
+  },
+  "localTrials": [
+    {
+      "name": "free-jump",
+      "form": "small",
+      "initialX": 2800,
+      "finalX": 2800,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2800,
+      "ceilingHit": false,
+      "frames": 56,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "reported-pipe",
+      "form": "small",
+      "initialX": 950,
+      "finalX": 1062.8899999999992,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1062.8899999999992,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-48",
+      "form": "small",
+      "initialX": 834,
+      "finalX": 896.8327666666661,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 896.8327666666661,
+      "ceilingHit": false,
+      "frames": 48,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-130",
+      "form": "small",
+      "initialX": 2310,
+      "finalX": 2374.49973333333,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 2374.49973333333,
+      "ceilingHit": false,
+      "frames": 48,
+      "coins": 3,
+      "lives": 3
+    },
+    {
+      "name": "wood-platform",
+      "form": "small",
+      "initialX": 274,
+      "finalX": 339.1664000000006,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 339.1664000000006,
+      "ceilingHit": false,
+      "frames": 52,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-30",
+      "form": "small",
+      "initialX": 510,
+      "finalX": 603.8334333333316,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 603.8334333333316,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-100",
+      "form": "small",
+      "initialX": 1770,
+      "finalX": 1863.8336333333366,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1863.8336333333366,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-150",
+      "form": "small",
+      "initialX": 2670,
+      "finalX": 2773.833633333326,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2773.833633333326,
+      "ceilingHit": false,
+      "frames": 73,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pit-68",
+      "form": "small",
+      "initialX": 1195,
+      "finalX": 1316.221600000005,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1316.221600000005,
+      "ceilingHit": false,
+      "frames": 77,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-116",
+      "form": "small",
+      "initialX": 2059,
+      "finalX": 2181.8893333333217,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2181.8893333333217,
+      "ceilingHit": false,
+      "frames": 78,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-164",
+      "form": "small",
+      "initialX": 2923,
+      "finalX": 3047.5553333333223,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 3047.5553333333223,
+      "ceilingHit": false,
+      "frames": 79,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "free-jump",
+      "form": "super",
+      "initialX": 2800,
+      "finalX": 2800,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2800,
+      "ceilingHit": false,
+      "frames": 58,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "reported-pipe",
+      "form": "super",
+      "initialX": 950,
+      "finalX": 1062.8877333333326,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1062.8877333333326,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-48",
+      "form": "super",
+      "initialX": 834,
+      "finalX": 896.4996999999993,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 896.4996999999993,
+      "ceilingHit": false,
+      "frames": 48,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "red-platform-130",
+      "form": "super",
+      "initialX": 2310,
+      "finalX": 2370.8309666666632,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 2370.8309666666632,
+      "ceilingHit": false,
+      "frames": 47,
+      "coins": 3,
+      "lives": 3
+    },
+    {
+      "name": "wood-platform",
+      "form": "super",
+      "initialX": 274,
+      "finalX": 333.83396666666715,
+      "finalFeet": 198,
+      "maxRise": 63.33333333333334,
+      "maxX": 333.83396666666715,
+      "ceilingHit": false,
+      "frames": 50,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-30",
+      "form": "super",
+      "initialX": 510,
+      "finalX": 603.5004999999982,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 603.5004999999982,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-100",
+      "form": "super",
+      "initialX": 1770,
+      "finalX": 1861.8329333333368,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1861.8329333333368,
+      "ceilingHit": false,
+      "frames": 71,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pipe-150",
+      "form": "super",
+      "initialX": 2670,
+      "finalX": 2770.16726666666,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2770.16726666666,
+      "ceilingHit": false,
+      "frames": 72,
+      "coins": 0,
+      "lives": 3
+    },
+    {
+      "name": "pit-68",
+      "form": "super",
+      "initialX": 1195,
+      "finalX": 1317.8888000000052,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 1317.8888000000052,
+      "ceilingHit": false,
+      "frames": 78,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-116",
+      "form": "super",
+      "initialX": 2059,
+      "finalX": 2181.888133333323,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 2181.888133333323,
+      "ceilingHit": false,
+      "frames": 78,
+      "coins": 2,
+      "lives": 3
+    },
+    {
+      "name": "pit-164",
+      "form": "super",
+      "initialX": 2923,
+      "finalX": 3044.2213333333225,
+      "finalFeet": 252,
+      "maxRise": 63.33333333333334,
+      "maxX": 3044.2213333333225,
+      "ceilingHit": false,
+      "frames": 77,
+      "coins": 2,
+      "lives": 3
+    }
+  ],
+  "result": "local-passed",
+  "continuous": [
+    {
+      "result": "completed",
+      "initialX": 54,
+      "initialForm": "small",
+      "finalForm": "small",
+      "lastX": 3672.610366666556,
+      "elapsedMs": 42216,
+      "lives": 3,
+      "damageEvents": [],
+      "checkpoints": [
+        {
+          "x": 400.8347333333347,
+          "ms": 3670,
+          "form": "small"
+        },
+        {
+          "x": 800.1656999999955,
+          "ms": 9519,
+          "form": "small"
+        },
+        {
+          "x": 1200.1656999999975,
+          "ms": 13517,
+          "form": "small"
+        },
+        {
+          "x": 1600.1657000000157,
+          "ms": 17518,
+          "form": "small"
+        },
+        {
+          "x": 2001.3878333333673,
+          "ms": 21534,
+          "form": "small"
+        },
+        {
+          "x": 2401.3878333333387,
+          "ms": 25534,
+          "form": "small"
+        },
+        {
+          "x": 2800.9436999999684,
+          "ms": 33451,
+          "form": "small"
+        },
+        {
+          "x": 3200.943699999932,
+          "ms": 37451,
+          "form": "small"
+        },
+        {
+          "x": 3600.9436999998957,
+          "ms": 41451,
+          "form": "small"
+        }
+      ],
+      "physicsFps": 60,
+      "renderFps": 61,
+      "method": "Continuo desde spawn normal, teclado sintético, enemigos activos, sin reposicionar ni conceder invulnerabilidad; termina al recibir daño. Super se prepara con grow() solo en el spawn."
+    },
+    {
+      "result": "damage-taken",
+      "initialX": 54,
+      "initialForm": "super",
+      "finalForm": "small",
+      "lastX": 279.93306666666615,
+      "elapsedMs": 2224,
+      "lives": 3,
+      "damageEvents": [
+        {
+          "fatal": false,
+          "x": 277.93306666666615,
+          "ms": 2221
+        }
+      ],
+      "checkpoints": [],
+      "physicsFps": 60,
+      "renderFps": 60,
+      "method": "Continuo desde spawn normal, teclado sintético, enemigos activos, sin reposicionar ni conceder invulnerabilidad; termina al recibir daño. Super se prepara con grow() solo en el spawn."
+    }
+  ]
+}
