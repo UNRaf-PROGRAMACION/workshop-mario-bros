@@ -92,15 +92,17 @@ El pack no incluye animaciones de reposo, salto, daño ni muerte: se resuelven c
 | Tubería (cuerpo) | `115` | `(270, 90, 18, 18)` | Tramo vertical, repetible |
 | Poste de meta | `32` / `52` / `72` | `(216, 18, 18, 18)` · `(216, 36, 18, 18)` · `(216, 54, 18, 18)` | Tramo, tramo y base del poste |
 | Bandera de meta | `85` | `(90, 72, 18, 18)` | Cartel de madera usado como bandera |
-| Suelo de pasto | `0–3` / `20–23` | `(0–54, 0)` / `(0–54, 18)` | Superficie: extremos `0`/`3`, centros `1`/`2` |
-| Suelo de tierra | `120–123` / `140–143` | `(0–54, 108)` / `(0–54, 126)` | Relleno con borde izquierdo/derecho |
-| Plataforma de madera | `40–43` / `60–63` | `(0–54, 36)` / `(0–54, 54)` | Plataformas elevadas |
-| Plataforma roja | `12–15` | `(216–270, 0)` | Se apoya sobre los postes `32`/`52`/`72` |
-| Nubes | `153–156` | `(234–288, 126)` | Decoración de fondo |
+| Suelo de pasto | `0–3` / `20–23` | `(0–54, 0)` / `(0–54, 18)` | Franja cerrada: aislado `0`, izquierda `1`, centro `2`, derecha `3`. Superficie abierta abajo: aislado `20`, izquierda `21`, centro `22`, derecha `23` |
+| Suelo de tierra | `120–123` / `140–143` | `(0–54, 108)` / `(0–54, 126)` | Relleno abierto verticalmente: aislado horizontal `120`, izquierda `121`, centro `122`, derecha `123`. Base cerrada abajo: `140`/`141`/`142`/`143`, mismos roles |
+| Plataforma beige (id histórico `wood`) | `40–43` / `60–63` | `(0–54, 36)` / `(0–54, 54)` | Franja cerrada: aislado `40`, izquierda `41`, centro `42`, derecha `43`. `60–63` son superficie abierta abajo, no una segunda fila inferior |
+| Plataforma roja | `12–15` | `(216–270, 0)` | Centros `12`/`13`, izquierda `14`, derecha `15`; mínimo dos celdas, sin variante aislada documentada |
+| Nubes | `153–156` | `(234–288, 126)` | Compuesta: izquierda `153`, centro `154`, derecha `155`. `156` es una nube aislada, no un cuarto tramo |
 | Dígitos HUD (chicos) | `160–169` | `(0–162, 144)` | `SCORE`, `COINS`, `LIVES` |
 | Dígitos grandes | `170–179` | `(180–342, 144)` | World Screen y Game Over |
 
 Los rects con guion indican una secuencia consecutiva: `0–3` son `(0, 0, 18, 18)`, `(18, 0, 18, 18)`, `(36, 0, 18, 18)` y `(54, 0, 18, 18)`.
+
+**Ensamblado verificado (016):** el suelo de dos filas combina superficie `21/22/23` y base `141/142/143`, con solo centros en el interior. No repetir pasto en filas inferiores ni asumir un orden universal en las familias. Las plataformas actuales son franjas cerradas de una fila (`41/42/43` o `14/12/13/15`); la apariencia beige no implica que las celdas sean piezas de madera.
 
 ### **2.6. Elementos sin asset directo**
 
@@ -429,6 +431,16 @@ El nivel comenzará con una zona sencilla donde Mario podrá caminar, saltar y r
 A medida que avance encontrará bloques, enemigos y obstáculos que deberá superar.
 
 Finalmente llegará al Goal Pole que marca el final del nivel.
+
+### 10.1. Contrato de transitabilidad (017)
+
+- Coordenadas en unidades de mundo, no píxeles de cámara. Grilla del escenario: 18 px. `left/top` son bordes; bloques, monedas y tuberías usan centros según los datos del nivel. No aplicar un desplazamiento global a entidades ya posicionadas.
+- Todas las plataformas están a 54 px del suelo y tienen 18 px de grosor: queda un pasaje inferior de 36 px para Small y Super (hitboxes de 22/26 px de alto). Siguen siendo sólidas por todos sus lados.
+- Primera plataforma roja: columnas 48–52, `x=864..936`; tubería siguiente: `x=981..999`. Espacio libre de 45 px para salir del techo antes de saltar. Segunda roja: columnas 130–134, también con su superficie en y=198.
+- Mantener el tuning de Mario. Referencia medida en navegador con físicas actuales: salto libre 63,3 px; ascenso obligatorio máximo de 54 px. El límite analítico de 66,7 px no debe usarse como altura garantizada.
+- Márgenes locales: espacio bajo techo ≥35 px y separación plataforma/tubería ≥38 px. Pozos actuales de 36 px requieren despegue a carrera; no son saltos garantizados desde cualquier posición o con cualquier input.
+- Las plataformas rojas son accesibles desde el suelo, sin depender de atravesar esquinas. Las monedas sobre ellas deben poder recogerse desde su superficie.
+- `validateLevelGeometry` controla restricciones locales. Una validación geométrica o una captura no demuestra completabilidad: verificar rutas Small/Super, peligros y recorrido continuo con enemigos activos, sin teletransporte ni invulnerabilidad añadida.
 
 > **Assets del nivel:** tiles `0–3`/`20–23` (pasto), `120–123`/`140–143` (tierra), `40–43`/`60–63` (plataformas), `12–15` (plataforma roja), `11` (hard), `10` (?), `9` (vacío), `29` (ladrillo), `151` (moneda), `128` (hongo), `95`+`115` (tubería), `32`/`52`/`72`+`85` (meta), `153–156` (nubes). Enemigos: frames `[18, 19, 20]` (Goomba) y Piranha generada. Ver §2.4–2.6.
 
