@@ -21,9 +21,9 @@ export const WORLD_1_1 = Object.freeze({
 
     platforms: Object.freeze([
         Object.freeze({ kind: 'wood', left: col(16), top: row(11), tiles: 4 }),
-        Object.freeze({ kind: 'red', left: col(50), top: row(10), tiles: 4 }),
+        Object.freeze({ kind: 'red', left: col(48), top: row(11), tiles: 4 }),
         Object.freeze({ kind: 'wood', left: col(88), top: row(11), tiles: 4 }),
-        Object.freeze({ kind: 'red', left: col(130), top: row(10), tiles: 4 }),
+        Object.freeze({ kind: 'red', left: col(130), top: row(11), tiles: 4 }),
         Object.freeze({ kind: 'wood', left: col(190), top: row(11), tiles: 4 })
     ]),
 

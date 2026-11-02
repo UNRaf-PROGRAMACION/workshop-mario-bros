@@ -89,6 +89,22 @@ export const TILE_SEQUENCES = Object.freeze({
     HUD_DIGITS_LARGE: sequence(TEXTURES.TILES_SHEET, [170, 171, 172, 173, 174, 175, 176, 177, 178, 179])
 });
 
+const tileFamily = ({ single = null, left, centers, right }) => Object.freeze({
+    single: single === null ? null : frameData(TEXTURES.TILES_SHEET, single),
+    left: frameData(TEXTURES.TILES_SHEET, left),
+    centers: sequence(TEXTURES.TILES_SHEET, centers),
+    right: frameData(TEXTURES.TILES_SHEET, right)
+});
+
+/** Roles verificados en el atlas; el orden de celdas NO define su conectividad. */
+export const TILE_FAMILIES = Object.freeze({
+    GRASS_TOP: tileFamily({ single: 20, left: 21, centers: [22], right: 23 }),
+    DIRT_BASE: tileFamily({ single: 140, left: 141, centers: [142], right: 143 }),
+    BEIGE_PLATFORM: tileFamily({ single: 40, left: 41, centers: [42], right: 43 }),
+    RED_PLATFORM: tileFamily({ left: 14, centers: [12, 13], right: 15 }),
+    CLOUD: tileFamily({ single: 156, left: 153, centers: [154], right: 155 })
+});
+
 /** Personajes y enemigos (§2.4). Piranha Plant no tiene asset: su textura se genera en 010. */
 export const CHARACTERS = Object.freeze({
     SMALL_MARIO: character({ frames: [0, 1], hitbox: HITBOXES.MARIO_SMALL }),

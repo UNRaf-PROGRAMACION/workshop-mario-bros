@@ -1,5 +1,5 @@
 import { Input, Scene } from 'phaser';
-import { TILE_SEQUENCES } from '../constants/assets.js';
+import { TILE_FAMILIES, TEXTURES } from '../constants/assets.js';
 import { GOOMBA } from '../constants/goombas.js';
 import { Coin, COIN_COLLECTED_EVENT } from '../entities/Coin.js';
 import { Goomba } from '../entities/Goomba.js';
@@ -10,6 +10,7 @@ import { BLOCK_TYPES, createBlock } from '../entities/blocks/createBlock.js';
 import { Mario, MARIO_DAMAGED_EVENT } from '../entities/Mario.js';
 import { buildEnvironment } from '../level/Environment.js';
 import { WORLD_1_1 } from '../level/world11.js';
+import { tileForColumn } from '../level/tileLayout.js';
 import { GAME_OVER_EVENT, GAME_STATE_KEY, STATE_CHANGED_EVENT } from '../state/GameState.js';
 
 const SKY_COLOR = 0x5c94fc;
@@ -202,12 +203,15 @@ export class Game extends Scene
 
     #createClouds ()
     {
-        WORLD_1_1.clouds.forEach(({ x, y }) =>
+        WORLD_1_1.clouds.forEach(({ x, y, tiles = 3 }) =>
         {
-            TILE_SEQUENCES.CLOUD.forEach((tile, index) =>
+            for (let index = 0; index < tiles; index++)
             {
-                this.add.image(x + index * 18, y, tile.texture, tile.frame).setDepth(CLOUD_DEPTH);
-            });
+                const tile = tileForColumn(TILE_FAMILIES.CLOUD, index, tiles);
+
+                this.add.image(x + index * TEXTURES.TILES_SHEET.frameWidth, y, tile.texture, tile.frame)
+                    .setDepth(CLOUD_DEPTH);
+            }
         });
     }
 
