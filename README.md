@@ -4,6 +4,8 @@ Versión simplificada de **Super Mario Bros (1985)** construida con **Phaser 4**
 
 Mario recorre World 1-1: camina, salta, golpea bloques, recoge monedas y power-ups, esquiva o pisa enemigos y llega a la bandera antes de quedarse sin vidas.
 
+![Mario saltando en World 1-1](docs/screenshots/world-1-1.png)
+
 ## Requisitos
 
 - [Node.js](https://nodejs.org) y npm (el proyecto también declara `pnpm` como package manager en `package.json`).
@@ -50,7 +52,8 @@ En desarrollo se puede arrancar el nivel en otra posición con `?startX=<valor>`
 | `scripts/` | Verificación dirigida del nivel con Chrome/CDP |
 | `assets/` | Spritesheets fuente (Kenney Pixel Platformer, CC0) |
 | `public/` | Assets estáticos servidos en runtime y estilos |
-| `docs/docs/GDD.md` | Game Design Document: fuente de verdad del gameplay |
+| `docs/GDD.md` | Game Design Document: fuente de verdad del gameplay |
+| `docs/screenshots/` | Capturas usadas en este README |
 | `.sdd/` | Specs, planes y evidencia del proceso |
 | `.opencode/skills/` | Skills locales de OpenCode |
 
